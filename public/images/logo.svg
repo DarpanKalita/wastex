@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="120" height="40" viewBox="0 0 120 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- WasteX Logo -->
+  <path d="M10 20C10 14.4772 14.4772 10 20 10H100C105.523 10 110 14.4772 110 20C110 25.5228 105.523 30 100 30H20C14.4772 30 10 25.5228 10 20Z" fill="#10B981"/>
+  <text x="20" y="28" font-family="Arial" font-size="16" font-weight="bold" fill="white">WasteX</text>
+  <!-- Recycling Symbol -->
+  <path d="M90 15C90 12.2386 92.2386 10 95 10C97.7614 10 100 12.2386 100 15C100 17.7614 97.7614 20 95 20C92.2386 20 90 17.7614 90 15Z" fill="white"/>
+  <path d="M95 12L98 15L95 18L92 15L95 12Z" fill="#10B981"/>
+</svg> 

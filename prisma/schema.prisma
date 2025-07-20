@@ -1,0 +1,143 @@
+datasource db {
+  provider = "mongodb"
+  url      = env("MONGODB_URI")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  email       String   @unique
+  password    String
+  role        String   @default("citizen")
+  phone       String   @unique
+  address     Json?
+  isEmailVerified Boolean @default(false)
+  verificationToken String?
+  verificationTokenExpiry DateTime?
+  resetToken  String?
+  resetTokenExpiry DateTime?
+  assignedArea Json?
+  rating      Float?
+  totalPickups Int?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model WastePickup {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId      String   @db.ObjectId
+  address     Json
+  wasteType   String
+  quantity    Float
+  unit        String
+  preferredDate DateTime
+  preferredTimeSlot String
+  status      String   @default("pending")
+  notes       String?
+  assignedTo  String?  @db.ObjectId
+  completedAt DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model LitterReport {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  reportedBy  String   @db.ObjectId
+  location    Json
+  description String
+  wasteType   String
+  severity    String
+  status      String   @default("pending")
+  images      String[]
+  assignedTo  String?  @db.ObjectId
+  resolvedAt  DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Service {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  title       String
+  description String
+  icon        String
+  features    String[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Quote {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  email       String
+  serviceType String
+  message     String
+  status      String   @default("pending")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model About {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  mission     String
+  vision      String
+  impact      Impact[]
+  team        Team[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Impact {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  category    String
+  items       String[]
+  aboutId     String   @db.ObjectId
+  about       About    @relation(fields: [aboutId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Team {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  title       String
+  description String
+  icon        String
+  aboutId     String   @db.ObjectId
+  about       About    @relation(fields: [aboutId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model BlogPost {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  title     String
+  content   String
+  author    String
+  category  String
+  tags      String[]
+  image     String
+  status    String
+  featured  Boolean
+  readTime  Int
+  likes     String[]
+  comments  Json
+  views     Int
+  slug      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("blogs")
+}
+
+model ServicePage {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  title       String
+  description String
+  icon        String
+  features    String[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+} 
